@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import Home from './components/home.js';
 import Scanner from './components/scanner';
+import Profile from './components/profile.js';
 
 const Stack = createNativeStackNavigator();
 
@@ -17,6 +18,7 @@ function App() {
         <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Scanner" component={Scanner} />
+        <Stack.Screen name="Profile" component={Profile} />
       </Stack.Navigator>
       
     
@@ -24,14 +26,6 @@ function App() {
   );
 }
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: 'pink',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-// });
 
 
 export default App;

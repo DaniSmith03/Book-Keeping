@@ -3,17 +3,13 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-function Home({ navigation }) {
+function Profile({ navigation }) {
     return (
       <View style={styles.container}>
-        <Text>Hello from Home Screen</Text>
+        <Text>Hello from Profile Screen</Text>
         <Button
-        title="Go to Scanner"
-        onPress={() => navigation.navigate('Scanner')}
-      />
-      <Button
-        title="Profile"
-        onPress={() => navigation.navigate('Profile')}
+        title="Go to Home"
+        onPress={() => navigation.navigate('Home')}
       />
       </View>
     );
@@ -35,4 +31,4 @@ const styles = StyleSheet.create({
 
 
 
-  export default Home;
+  export default Profile;
