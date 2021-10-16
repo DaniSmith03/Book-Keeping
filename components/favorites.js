@@ -3,17 +3,13 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-function Profile({ navigation }) {
+function Favorites({ navigation }) {
     return (
       <View style={styles.container}>
-        <Text>Hello from Profile Screen</Text>
+        <Text>Hello from Favorites Screen</Text>
         <Button
-        title="Favorites"
-        onPress={() => navigation.navigate('Favorites')}
-      />
-        <Button
-        title="Go to Home"
-        onPress={() => navigation.navigate('Home')}
+        title="Back to Profile"
+        onPress={() => navigation.navigate('Profile')}
       />
       </View>
     );
@@ -35,4 +31,4 @@ const styles = StyleSheet.create({
 
 
 
-  export default Profile;
+  export default Favorites;
