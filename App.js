@@ -8,6 +8,7 @@ import Home from './components/home.js';
 import Scanner from './components/scanner';
 import Profile from './components/profile.js';
 import Favorites from './components/favorites.js';
+import Review from './components/review.js'; 
 const Stack = createNativeStackNavigator();
 
 
@@ -20,6 +21,7 @@ function App() {
         <Stack.Screen name="Scanner" component={Scanner} />
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="Favorites" component={Favorites}/>
+        <Stack.Screen name="Review" component={Review}/>
       </Stack.Navigator>
       
     
