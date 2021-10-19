@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 // import { firebase } from '../../firebase/config'
 import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, Button, Image } from 'react-native';
-import { BarCodeScanner } from 'expo-barcode-scanner';
+
 
 function Review({ route, navigation }) {
   const [book, getBook]=useState(undefined);
