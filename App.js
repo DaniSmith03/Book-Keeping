@@ -1,12 +1,13 @@
 // import { StatusBar } from 'expo-status-bar';
 import * as React from 'react';
-// import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+import Login from './components/login.js';
 import Home from './components/home.js';
 import Scanner from './components/scanner';
-import Profile from './components/profile.js';
+
 import Favorites from './components/favorites.js';
 import Review from './components/review.js'; 
 const Stack = createNativeStackNavigator();
@@ -16,10 +17,11 @@ const Stack = createNativeStackNavigator();
 function App() {
   return (
     <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home">
+        <Stack.Navigator initialRouteName="Login">
+        <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Scanner" component={Scanner} />
-        <Stack.Screen name="Profile" component={Profile} />
+       
         <Stack.Screen name="Favorites" component={Favorites}/>
         <Stack.Screen name="Review" component={Review}/>
       </Stack.Navigator>

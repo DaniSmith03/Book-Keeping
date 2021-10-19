@@ -1,20 +1,49 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/core'
+import { auth } from '../firebase'
+
 
 function Home({ navigation }) {
+
+  // const navigation = useNavigation()
+
+  const handleSignOut = () => {
+    auth
+      .signOut()
+      .then(() => {
+        navigation.replace("Login")
+      })
+      .catch(error => alert(error.message))
+  }
+
+
+
+
+
     return (
       <View style={styles.container}>
         <Text>Hello from Home Screen</Text>
         <Button
-        title="Go to Scanner"
+        title="Scan A Book"
         onPress={() => navigation.navigate('Scanner')}
       />
       <Button
-        title="Profile"
-        onPress={() => navigation.navigate('Profile')}
+        title="View Favorites"
+        onPress={() => navigation.navigate('Favorites')}
       />
+
+      <Text>
+        Email: {auth.currentUser?.email}
+      </Text>
+      <TouchableOpacity
+        onPress={handleSignOut}
+        style={styles.button}
+      >
+        <Text style={styles.buttonText}>
+          Sign out
+        </Text>
+      </TouchableOpacity>
       </View>
     );
   }
@@ -25,7 +54,21 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-}
+},
+button: {
+  backgroundColor: '#ffbf00',
+  width: '60%',
+  padding: 15,
+  borderRadius: 10,
+  alignItems: 'center',
+  marginTop: 50,
+  top:150,
+},
+buttonText: {
+  color: 'white',
+  fontWeight: '700',
+  fontSize: 16,
+},
 
 
 

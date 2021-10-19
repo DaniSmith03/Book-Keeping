@@ -7,9 +7,9 @@ function Scanner({navigation}) {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [text, setText] = useState('Not yet scanned')
-  const [book, getBook]=useState(undefined);
-  const [artId, getArt]=useState(undefined);
-  const [publisher, getPublisher]=useState(undefined);
+  // const [book, getBook]=useState(undefined);
+  // const [artId, getArt]=useState(undefined);
+  // const [publisher, getPublisher]=useState(undefined);
 
   const askForCameraPermission = () => {
     (async () => {
