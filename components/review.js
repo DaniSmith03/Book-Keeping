@@ -1,7 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
-// import { firebase } from '../../firebase/config'
 import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, Button, Image } from 'react-native';
+import {db} from '../firebase'
+import { initializeApp } from 'firebase/app';
+
+
+
 
 
 function Review({ route, navigation }) {
@@ -10,6 +14,9 @@ function Review({ route, navigation }) {
   const [publisher, getPublisher]=useState(undefined);
   const {isbn}=route.params;
   const bookId=JSON.parse(isbn);
+  const favorites=db.collection('favorites')
+
+
       // Get Data from API
     const getData=()=>{
     fetch(`https://openlibrary.org/isbn/${bookId}.json`)
@@ -27,6 +34,23 @@ function Review({ route, navigation }) {
   };
   getData();
 
+  const handleAddFavorite=()=>{
+    favorites.doc(`${bookId}`).set({
+      title:`${book}`,
+      publisher:`${publisher}`,
+      cover:artId
+    })
+    .then(() => {
+      navigation.navigate('Favorites')
+      console.log("Document successfully written!");
+  })
+  .catch((error) => {
+      console.error("Error writing document: ", error);
+  });
+
+  }
+
+
 
 
   return (
@@ -43,7 +67,7 @@ function Review({ route, navigation }) {
 
         <Button
         title="Add To Favorites"
-        onPress={() => navigation.navigate('Favorites')}
+        onPress={() => {handleAddFavorite();}}
       />
       </View>
     );
