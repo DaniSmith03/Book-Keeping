@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+// import { StyleSheet, Text, View, Button } from 'react-native';
+import {Image, StyleSheet, ActivityIndicator, FlatList, View, Text } from 'react-native';
 import {db} from '../firebase'
 
 
@@ -7,37 +8,51 @@ import {db} from '../firebase'
 
 
 function Favorites({ navigation }) {
-  const [book, getBook]=useState(undefined);
+  const favorites=db.collection('favorites')
+  const [loading, setLoading] = useState(true); // Set loading to true on component mount
+  const [books, setBooks] = useState([]); // Initial empty array of users
 
-const favorites=db.collection('favorites').doc('wBOivivgSYd5efirHYjX')
+  useEffect(() => {
+      const subscriber=favorites
+      .onSnapshot((querySnapshot) => {
+      const books=[];
+      querySnapshot.forEach(documentSnapshot => {
+        books.push({
+          ...documentSnapshot.data(),
+          key: documentSnapshot.id,
+        });
+      });
 
-favorites.get().then((doc) => {
-  if (doc.exists) {
-    const value=doc.data().title
-    console.log("Document data:", doc.data());
-    return(getBook(value));
-  } 
-  
-  
-  else {
-      // doc.data() will be undefined in this case
-      console.log("This book doesn't exist!");
+      setBooks(books);
+      setLoading(false);
+      
+    });
+
+    return () => subscriber();
+  }, []);
+
+  if (loading) {
+    return <ActivityIndicator />;
   }
-}).catch((error) => {
-  console.log("Error getting book:", error);
-});
 
 
 
-    return (
+
+
+
+
+return (
+  <FlatList
+    data={books}
+    renderItem={({ item }) => (
       <View style={styles.container}>
-        <Text>{book}</Text>
-        <Button
-        title="Back to Home"
-        onPress={() => navigation.navigate('Home')}
-      />
+        <Image style={styles.coverArt}
+        source={{uri:`https://covers.openlibrary.org/b/id/${item.cover}.jpg`}}/>
+        <Text>{item.title}</Text>
       </View>
-    );
+    )}
+  />
+);
   }
 
 
@@ -46,7 +61,12 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-}
+    
+},
+coverArt: {
+  width: 100,
+  height: 150,
+},
 
 
 

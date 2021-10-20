@@ -41,7 +41,7 @@ function Review({ route, navigation }) {
       cover:artId
     })
     .then(() => {
-      navigation.navigate('Favorites')
+      navigation.replace('Favorites')
       console.log("Document successfully written!");
   })
   .catch((error) => {
