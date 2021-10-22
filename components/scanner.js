@@ -27,7 +27,7 @@ function Scanner({navigation}) {
    const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
     setText(data)
-      navigation.navigate('Review',{isbn:data})
+      navigation.replace('Review',{isbn:data})
 
   };
 

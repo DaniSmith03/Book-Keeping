@@ -19,6 +19,7 @@ function Review({ route, navigation }) {
 
       // Get Data from API
     const getData=()=>{
+      console.log("this is",{bookId})
     fetch(`https://openlibrary.org/isbn/${bookId}.json`)
     .then(response=> response.json())
     .then((data)=>{

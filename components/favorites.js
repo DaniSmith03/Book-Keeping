@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from 'react';
-// import { StyleSheet, Text, View, Button } from 'react-native';
-import {Image, StyleSheet, ActivityIndicator, FlatList, View, Text } from 'react-native';
+import {styles} from '../styles';
+import {Image, StyleSheet, ActivityIndicator, FlatList, View, Text, TouchableHighlight} from 'react-native';
 import {db} from '../firebase'
+import {navigateActionHome} from './nav';
+
 
 
 
 
 
 function Favorites({ navigation }) {
+
   const favorites=db.collection('favorites')
   const [loading, setLoading] = useState(true); // Set loading to true on component mount
   const [books, setBooks] = useState([]); // Initial empty array of users
+
 
   useEffect(() => {
       const subscriber=favorites
@@ -35,7 +39,19 @@ function Favorites({ navigation }) {
     return <ActivityIndicator />;
   }
 
+  const done =()=>{
+    if (setLoading===false){
+      navigation.dispatch(navigateActionHome)
+    }
+    
+    
+  };
+  done();
 
+
+  
+
+  
 
 
 
@@ -43,35 +59,40 @@ function Favorites({ navigation }) {
 
 return (
   <FlatList
+   columnWrapperStyle={{justifyContent: 'space-around'}}
+   numColumns={2}
     data={books}
     renderItem={({ item }) => (
+      <TouchableHighlight style={styles.touch}
+        onPress={()=>navigation.navigate('BookDetails',{isbn:item.key})}>
       <View style={styles.container}>
         <Image style={styles.coverArt}
         source={{uri:`https://covers.openlibrary.org/b/id/${item.cover}.jpg`}}/>
-        <Text>{item.title}</Text>
+        {/* <Text style={styles.title}>{item.title}</Text> */}
       </View>
+      </TouchableHighlight>
     )}
   />
 );
   }
 
 
-const styles = StyleSheet.create({
-    container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+// const styles = StyleSheet.create({
+//     container: {
+//     flex: 1,
+//     alignItems: 'center',
+//     justifyContent: 'center',
     
-},
-coverArt: {
-  width: 100,
-  height: 150,
-},
+// },
+// coverArt: {
+//   width: 100,
+//   height: 150,
+// },
 
 
 
 
-});
+// });
 
 
 
