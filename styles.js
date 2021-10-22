@@ -79,6 +79,10 @@ inputContainer: {
     fontWeight: '700',
     fontSize: 16,
   },
+  toBottom:{
+    top:200,
+
+  },
   buttonSO: {
     backgroundColor: '#ffbf00',
     width: '60%',
@@ -86,7 +90,66 @@ inputContainer: {
     borderRadius: 10,
     alignItems: 'center',
     marginTop: 50,
-    top:150,
+    marginBottom:30,
+    
   },
+  buttonSOOutline: {
+    backgroundColor: 'white',
+    width: '60%',
+    padding: 15,
+    borderRadius: 10,
+    alignItems: 'center',
+    marginTop: 30,
+    borderColor: '#ffbf00',
+    borderWidth: 2,
+  },
+  maintext: {
+    fontSize: 16,
+    margin: 20,
+  },
+  barcodebox: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 300,
+    width: 300,
+    overflow: 'hidden',
+    backgroundColor: 'yellow',
+    borderColor:'#ffbf00',
+    borderStyle:'solid',
+    borderWidth:5,
+  },
+
+// BookDetails
+
+bookCover:{
+    width: 180,
+  height: 250,
+  marginTop:50,
+  borderColor:'black',
+  borderWidth: 1,
+
+},
+title:{
+    marginTop:30,
+    textDecorationLine:'underline',
+    fontWeight:'bold',
+    fontSize:30,
+
+},
+isbn:{
+    top:100,
+
+},
+
+
+
+
+
+
+
+
+
+
+
 
 });

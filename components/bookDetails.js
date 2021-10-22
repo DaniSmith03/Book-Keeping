@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {styles} from '../styles';
-import {Image, View, Text, TouchableOpacity} from 'react-native';
+import {Image, View, Text, TouchableOpacity, ScrollView} from 'react-native';
 import {db} from '../firebase'
 import {navigateActionFav} from './nav';
 
@@ -8,6 +8,7 @@ function bookDetails ({ route, navigation })  {
   const [book, getTitle]=useState(undefined);
   const [artId, getArt]=useState(undefined);
   const [publisher, getPublisher]=useState(undefined);
+  const [description, getDescription]=useState(undefined);
   const {isbn}=route.params;
   const bookId=JSON.parse(isbn);
   const id=JSON.stringify(bookId)
@@ -25,6 +26,7 @@ function bookDetails ({ route, navigation })  {
       getTitle(doc.data().title)
       getArt(doc.data().cover)
       getPublisher(doc.data().publisher)
+      getDescription(doc.data().description)
         
         console.log("Document data:", doc.data());
         
@@ -63,14 +65,17 @@ const handleDelete=()=>{
 
 return (
   <View style={styles.container}>
-        <Text>isbn: {id}</Text>
-        <Text style={styles.maintext}>{book}</Text>
-        <Image style={styles.coverArt}
+        <Text style={styles.isbn}>isbn: {id}</Text>
+        <Text style={styles.title}>{book}</Text>
+        <Image style={styles.bookCover}
         source={{uri:`https://covers.openlibrary.org/b/id/${artId}.jpg`}}/>
-        <Text style={styles.maintext}>{publisher}</Text>
+        <Text style={styles.maintext}>Publisher: {publisher}</Text>
+        <ScrollView>
+        <Text style={styles.maintext}>Description: {description}</Text>
+        </ScrollView>
         <TouchableOpacity
           onPress={handleDelete}
-          style={styles.button}
+          style={styles.buttonSO}
         >
         <Text style={styles.buttonText}>
           Delete Book

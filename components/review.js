@@ -1,8 +1,8 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, Button, Image } from 'react-native';
-import {db} from '../firebase'
-import { initializeApp } from 'firebase/app';
+import { Text, View, Image, TouchableOpacity } from 'react-native';
+import {db} from '../firebase';
+import { styles } from '../styles';
+import { navigateActionFav } from './nav';
 
 
 
@@ -12,6 +12,8 @@ function Review({ route, navigation }) {
   const [book, getBook]=useState(undefined);
   const [artId, getArt]=useState(undefined);
   const [publisher, getPublisher]=useState(undefined);
+  const [workId, getWorks]=useState(undefined);
+  const [summary, getSummary]=useState("undefined");
   const {isbn}=route.params;
   const bookId=JSON.parse(isbn);
   const favorites=db.collection('favorites')
@@ -19,11 +21,11 @@ function Review({ route, navigation }) {
 
       // Get Data from API
     const getData=()=>{
-      console.log("this is",{bookId})
+      // console.log("this is",{bookId})
     fetch(`https://openlibrary.org/isbn/${bookId}.json`)
     .then(response=> response.json())
     .then((data)=>{
-      // console.log(data)
+      // console.log((data.works[0]))
       // const Title=data.title;
       // const Publisher=data.publishers[0];
       // const Cover=data.covers[0];
@@ -35,14 +37,68 @@ function Review({ route, navigation }) {
   };
   getData();
 
+
+  //Code below to get Book summary information
+
+  const getWorkId=()=>{
+    // console.log("this is",{bookId})
+  fetch(`https://openlibrary.org/isbn/${bookId}.json`)
+  .then(response=> response.json())
+  .then((data)=>
+    data.works[0]
+  ).then((data)=>{
+   getWorks(data.key)
+  });
+
+  }
+getWorkId();
+
+
+
+
+
+  const readSummary=()=>{
+  fetch(`https://openlibrary.org${workId}.json`)
+  .then(response=> response.json())
+  .then((data)=>{
+    if (typeof data.description==='object'){
+      const obj=data.description
+      getSummary(obj.value)
+    }
+    else if(data.description&& typeof data.description!=='object'&& data.description!==null){
+    getSummary(data.description)
+    }
+    else{
+      getSummary("No Description Available")
+      }
+
+
+    
+  }).catch((error) => {
+    console.log("Error getting document:", error);
+});
+};
+readSummary();
+
+
+
+
+
+
+
+
+
+
+
   const handleAddFavorite=()=>{
     favorites.doc(`${bookId}`).set({
       title:`${book}`,
       publisher:`${publisher}`,
-      cover:artId
+      cover:artId,
+      description:`${summary}`,
     })
     .then(() => {
-      navigation.replace('Favorites')
+      navigation.dispatch(navigateActionFav)
       console.log("Document successfully written!");
   })
   .catch((error) => {
@@ -56,51 +112,29 @@ function Review({ route, navigation }) {
 
   return (
       <View style={styles.container}>
-        <Text>Review Scan</Text>
-        <Text>isbn: {bookId}</Text>
-        <Text style={styles.maintext}>{book}</Text>
-        <Image style={styles.coverArt}
+        <Text style={styles.isbn} >isbn: {bookId}</Text>
+        <Text style={styles.title}>{book}</Text>
+        <Image style={styles.bookCover}
         source={{uri:`https://covers.openlibrary.org/b/id/${artId}.jpg`}}/>
-        <Text style={styles.maintext}>{publisher}</Text>
+        <Text style={styles.maintext}> Publisher: {publisher}</Text>
 
 
 
 
-        <Button
-        title="Add To Favorites"
-        onPress={() => {handleAddFavorite();}}
-      />
+        <TouchableOpacity
+        onPress={() => {handleAddFavorite()}}
+        style={styles.buttonSO}
+      >
+        <Text style={styles.buttonText}>
+          Add To Favorites
+        </Text>
+      </TouchableOpacity>
       </View>
     );
   }
 
+  
 
-
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  maintext: {
-    fontSize: 16,
-    margin: 20,
-  },
-  barcodebox: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 300,
-    width: 300,
-    overflow: 'hidden',
-    backgroundColor: 'yellow'
-  },
-  coverArt: {
-    width: 100,
-    height: 150,
-  },
-});
 
 
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {styles} from '../styles';
-import {Image, StyleSheet, ActivityIndicator, FlatList, View, Text, TouchableHighlight} from 'react-native';
+import {Image, ActivityIndicator, FlatList, View, Text, TouchableHighlight} from 'react-native';
 import {db} from '../firebase'
 import {navigateActionHome} from './nav';
 
@@ -76,23 +76,6 @@ return (
 );
   }
 
-
-// const styles = StyleSheet.create({
-//     container: {
-//     flex: 1,
-//     alignItems: 'center',
-//     justifyContent: 'center',
-    
-// },
-// coverArt: {
-//   width: 100,
-//   height: 150,
-// },
-
-
-
-
-// });
 
 
 

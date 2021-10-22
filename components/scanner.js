@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, Button, Image } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
+import { styles } from '../styles';
 
 function Scanner({navigation}) {
   const [hasPermission, setHasPermission] = useState(null);
@@ -55,37 +56,37 @@ function Scanner({navigation}) {
           style={{ height: 400, width: 400 }} />
       </View>
      
-      {scanned && <Button title={'Scan again?'} onPress={() => setScanned(false)} color='tomato' />}
+      {scanned && <Button title={'Scan again?'} onPress={() => setScanned(false) } color='tomato' />}
     </View>
   );
 }
 
 
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  maintext: {
-    fontSize: 16,
-    margin: 20,
-  },
-  barcodebox: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 300,
-    width: 300,
-    overflow: 'hidden',
-    backgroundColor: 'yellow'
-  },
-  coverArt: {
-    width: 100,
-    height: 150,
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: '#fff',
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
+//   maintext: {
+//     fontSize: 16,
+//     margin: 20,
+//   },
+//   barcodebox: {
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//     height: 300,
+//     width: 300,
+//     overflow: 'hidden',
+//     backgroundColor: 'yellow'
+//   },
+//   coverArt: {
+//     width: 100,
+//     height: 150,
+//   },
+// });
 
 export default Scanner;
 
