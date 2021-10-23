@@ -41,7 +41,8 @@ function Favorites({ navigation }) {
 
   const done =()=>{
     if (setLoading===false){
-      navigation.dispatch(navigateActionHome)
+      navigation.push("navigateActionHome")
+      
     }
     
     
@@ -58,6 +59,7 @@ function Favorites({ navigation }) {
 
 
 return (
+
   <FlatList
    columnWrapperStyle={{justifyContent: 'space-around'}}
    numColumns={2}
@@ -70,9 +72,20 @@ return (
         source={{uri:`https://covers.openlibrary.org/b/id/${item.cover}.jpg`}}/>
         {/* <Text style={styles.title}>{item.title}</Text> */}
       </View>
-      </TouchableHighlight>
+      </TouchableHighlight> 
     )}
+
+    
+
   />
+
+
+      
+
+
+
+
+
 );
   }
 

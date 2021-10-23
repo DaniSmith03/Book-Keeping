@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {styles} from '../styles';
 import {Image, View, Text, TouchableOpacity, ScrollView} from 'react-native';
 import {db} from '../firebase'
-import {navigateActionFav} from './nav';
+import {navigateActionFav, navigateActionHome, navigateActionStack} from './nav';
 
 function bookDetails ({ route, navigation })  {
   const [book, getTitle]=useState(undefined);
@@ -49,7 +49,7 @@ const handleDelete=()=>{
   docRef.delete().then(() => {
     console.log(`book with isbn ${id} successfully deleted`)
     
-}).then(navigation.dispatch(navigateActionFav)).catch((error) => {
+}).catch((error) => {
     console.error("Error removing document: ", error);
 });
 }
@@ -74,7 +74,7 @@ return (
         <Text style={styles.maintext}>Description: {description}</Text>
         </ScrollView>
         <TouchableOpacity
-          onPress={handleDelete}
+          onPress={()=>{handleDelete(); navigation.dispatch(navigateActionStack);}}
           style={styles.buttonSO}
         >
         <Text style={styles.buttonText}>

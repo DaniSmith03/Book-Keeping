@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Text, View, Image, TouchableOpacity } from 'react-native';
 import {db} from '../firebase';
 import { styles } from '../styles';
-import { navigateActionFav } from './nav';
+import { navigateActionDetails, navigateActionFav } from './nav';
 
 
 
@@ -10,7 +10,7 @@ import { navigateActionFav } from './nav';
 
 function Review({ route, navigation }) {
   const [book, getBook]=useState(undefined);
-  const [artId, getArt]=useState(undefined);
+  const [artId, getArt]=useState('No Image Available');
   const [publisher, getPublisher]=useState(undefined);
   const [workId, getWorks]=useState(undefined);
   const [summary, getSummary]=useState("undefined");
@@ -25,13 +25,14 @@ function Review({ route, navigation }) {
     fetch(`https://openlibrary.org/isbn/${bookId}.json`)
     .then(response=> response.json())
     .then((data)=>{
-      // console.log((data.works[0]))
-      // const Title=data.title;
-      // const Publisher=data.publishers[0];
-      // const Cover=data.covers[0];
       getBook(data.title)
-      getArt(data.covers[0])
       getPublisher(data.publishers[0])
+      if(data.covers[0]&&data.covers!==null){
+        getArt(data.covers[0])
+      }
+      else{
+        console.log('No Image Available')
+      }
       
     });
   };
@@ -98,7 +99,7 @@ readSummary();
       description:`${summary}`,
     })
     .then(() => {
-      navigation.dispatch(navigateActionFav)
+      navigation.replace("Favorites")
       console.log("Document successfully written!");
   })
   .catch((error) => {

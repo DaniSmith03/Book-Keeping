@@ -14,7 +14,10 @@ export const navigateActionFav=CommonActions.reset({
 export const navigateActionHome=CommonActions.reset({
     index: 0,
     routes: [
-      { name: 'Favorites' }
+      { name: 'Home' }
     ],
   })
 
+  export const navigateActionStack=CommonActions.goBack();
+
+ 
