@@ -65,7 +65,6 @@ const handleDelete=()=>{
 
 return (
   <View style={styles.container}>
-        <Text style={styles.isbn}>isbn: {id}</Text>
         <Text style={styles.title}>{book}</Text>
         <Image style={styles.bookCover}
         source={{uri:`https://covers.openlibrary.org/b/id/${artId}.jpg`}}/>

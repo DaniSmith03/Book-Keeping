@@ -122,8 +122,8 @@ inputContainer: {
 // BookDetails
 
 bookCover:{
-    width: 180,
-  height: 250,
+  width: 300,
+  height: 350,
   marginTop:50,
   borderColor:'black',
   borderWidth: 1,

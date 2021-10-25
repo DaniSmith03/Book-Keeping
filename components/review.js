@@ -26,12 +26,19 @@ function Review({ route, navigation }) {
     .then(response=> response.json())
     .then((data)=>{
       getBook(data.title)
-      getPublisher(data.publishers[0])
+      // getPublisher(data.publishers[0])
       if(data.covers[0]&&data.covers!==null){
         getArt(data.covers[0])
       }
       else{
         console.log('No Image Available')
+      }
+
+      if( typeof data.publishers==='object' && data.publishers[0]){
+        getPublisher(data.covers[0])
+      }
+      else{
+        getPublisher('No Publisher Available')
       }
       
     });
@@ -113,11 +120,11 @@ readSummary();
 
   return (
       <View style={styles.container}>
-        <Text style={styles.isbn} >isbn: {bookId}</Text>
         <Text style={styles.title}>{book}</Text>
         <Image style={styles.bookCover}
         source={{uri:`https://covers.openlibrary.org/b/id/${artId}.jpg`}}/>
         <Text style={styles.maintext}> Publisher: {publisher}</Text>
+        <Text style={styles.isbn} >isbn: {bookId}</Text>
 
 
 
